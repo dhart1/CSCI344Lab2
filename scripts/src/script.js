@@ -2,18 +2,37 @@
  * This is the entry point for our JavaScript program
  */
 function main() {
-    //your code goes here
-    alert("hello world!");
-
-
+    var s = new Spotter("twitter.search",
+					{q:"Random", period:120},
+					{buffer:true, bufferTimeout:750}
+					);
+	var color = 'red';
+	var count=0;				
+	s.register(function(tweet){
+		count++;
+		var profile_image="<img src='"+tweet.profile_image_url+"'/>";
+		if(count%2===0) {
+			color='red';
+		}
+		else {
+			color='blue';
+		}
+		
+		var object=$("<p class="+color+">"+profile_image + tweet.text +"</p>");
+		object.hide();
+		$("#tweets").prepend(object);
+		object.slideDown();
+	});
+	s.start();
+	
     //your tasks
 
     //1. Create a spotter and get it to insert tweets into the DOM
     //2. Add profile images (tweet.profile_image_url)
-    //3. Make the tweets occur so the most recent are at the top
-    //4. Make the tweets slide down
-    //5. Alternate the colors or the background of the tweets
-    //6. Show a maximum of 10 tweets at a time (remove old tweets from the dom)
+    //3. Make the tweets occur so the most recent are at the top (check jquery documentation)
+    //4. Make the tweets slide down (hide/slide down)
+    //5. Alternate the colors or the background of the tweets (css)
+    //6. Show a maximum of 10 tweets at a time (remove old tweets from the dom) (use arrays)
 
 
 }
