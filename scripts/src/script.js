@@ -3,7 +3,7 @@
  */
 function main() {
     var s = new Spotter("twitter.search",
-					{q:"Random", period:120},
+					{q:"asheville", period:120},
 					{buffer:true, bufferTimeout:750}
 					);
 	var color = 'red';
@@ -24,13 +24,25 @@ function main() {
 		$("#tweets").prepend(object);
 		object.slideDown();
 		
-		object_array.push(object);
+		$("#tweets p:gt(3)").fadeOut(200, function (){
+			$("#tweets p:gt(3)").remove();
+		});
+		
+		/*
+		if(count > 4){	
+		var object_to_remove = $("#tweets p: last-child");
+		object_to_remove.fadeout(1000, function () {
+			object_to_remove.remove();
+		});
+		}*/
+		
+		/*object_array.push(object);
 		if(object_array.length>5){
 			var object_to_remove=object_array.shift();
 			object_to_remove.fadeOut(2000, function() {
 				object_to_remove.remove();	
 			});
-		}
+		}*/
 			
 	});
 	s.start();
