@@ -7,7 +7,9 @@ function main() {
 					{buffer:true, bufferTimeout:750}
 					);
 	var color = 'red';
-	var count=0;				
+	var count=0;
+	var object_array = [];
+					
 	s.register(function(tweet){
 		count++;
 		var profile_image="<img src='"+tweet.profile_image_url+"'/>";
@@ -17,11 +19,19 @@ function main() {
 		else {
 			color='blue';
 		}
-		
 		var object=$("<p class="+color+">"+profile_image + tweet.text +"</p>");
 		object.hide();
 		$("#tweets").prepend(object);
 		object.slideDown();
+		
+		object_array.push(object);
+		if(object_array.length>5){
+			var object_to_remove=object_array.shift();
+			object_to_remove.fadeOut(2000, function() {
+				object_to_remove.remove();	
+			});
+		}
+			
 	});
 	s.start();
 	
